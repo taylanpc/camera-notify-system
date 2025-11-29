@@ -3,7 +3,7 @@ name: YouTube Yayın Kontrolü
 on:
   schedule:
     # Kodu her 5 dakikada bir çalıştır
-    - cron: '*/5 * * * *' 
+    - cron: '* * * * *' 
   workflow_dispatch:
 
 jobs:
