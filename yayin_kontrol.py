@@ -18,7 +18,7 @@ def get_live_stream_link(api_key, channel_id):
         youtube = build('youtube', 'v3', developerKey=api_key)
         
         # Sadece canlı yayınları arıyoruz
-        search_response = youtube.search().list(order='date', 
+        search_response = youtube.search().list(
             channelId=channel_id,
             type='video',
             part='snippet',
