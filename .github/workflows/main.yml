@@ -1,0 +1,33 @@
+name: YouTube Yayın Kontrolü
+
+on:
+  schedule:
+    # Kodu her 5 dakikada bir çalıştır
+    - cron: '*/5 * * * *' 
+  workflow_dispatch:
+
+jobs:
+  check_live_stream:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    # Python'ı kur
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+
+    # Gerekli kütüphaneleri yükle (google-api-python-client ve requests)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install google-api-python-client requests
+    
+    # Python kodunu çalıştır ve gizli bilgileri aktar
+    - name: Run script
+      run: python yayin_kontrol.py
+      env:
+        YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
